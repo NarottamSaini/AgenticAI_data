@@ -1,7 +1,7 @@
 question,cypher
-"Find CustomerName,AccountNumber,Balance for a given customer","MATCH (c:CUSTOMERID {CUST_ID: 1135})-[:HAS]->(a:ACCOUNT_MAST)
+"Find CustomerName,AccountNumber,Balance for a customer having customerID = 1135","MATCH (c:CUSTOMERID {CUST_ID: 1135})-[:HAS]->(a:ACCOUNT_MAST)
 RETURN c.NAM_CUST_FULL AS CustomerName, a.ACCT_NO AS AccountNumber, a.BAL_AVAILABLE AS Balance;"
-Get all transactions details for a given customer,"MATCH (c:CUSTOMERID {CUST_ID: 1135})-[:HAS]->(a:ACCOUNT_MAST)-[:Transaction_detail]->(t:NOBOOK)
+Get all transactions details for a customer having CUSTOMERID = 1135,"MATCH (c:CUSTOMERID {CUST_ID: 1135})-[:HAS]->(a:ACCOUNT_MAST)-[:Transaction_detail]->(t:NOBOOK)
 RETURN c.NAM_CUST_FULL AS CustomerName, a.ACCT_NO AS AccountNumber, t.DAT_TXN AS TransactionDate, 
        t.TXT_TXN_DESC AS Description, t.AMT_TXN AS Amount, t.AMT_DRCR AS Type;"
 "Find customerID, CustomerName, Account number and balance for account having balance less than a threshold","MATCH (c:CUSTOMERID)-[:HAS]->(a:ACCOUNT_MAST)
@@ -12,7 +12,7 @@ RETURN c.CUST_ID, c.NAM_CUST_FULL,
        t.AMT_DRCR AS Type,
        COUNT(t) AS TransactionCount
 ORDER BY TransactionCount DESC, Type;"
-List all transactions for a given account with full audit trail or account details,"MATCH (c:CUSTOMERID)-[:HAS]->(a:ACCOUNT_MAST {ACCT_NO: 10062})-[:Transaction_detail]->(t:NOBOOK)
+List all transactions with full audit trail or account details for account number 10062,"MATCH (c:CUSTOMERID)-[:HAS]->(a:ACCOUNT_MAST {ACCT_NO: 10062})-[:Transaction_detail]->(t:NOBOOK)
 RETURN c.CUST_ID, c.NAM_CUST_FULL, a.ACCT_NO, t.DAT_TXN, t.TXT_TXN_DESC, t.AMT_DRCR, t.AMT_TXN, t.REF_USR_NO;"
 Total credit and debit amount per customer,"MATCH (c:CUSTOMERID)-[:HAS]->(a:ACCOUNT_MAST)-[:Transaction_detail]->(t:NOBOOK)
 WITH c, 
@@ -28,7 +28,7 @@ RETURN c.CUST_ID, c.NAM_CUST_FULL, TotalCredit, TotalDebit;"
 Identify dormant customers with no transactions,"MATCH (c:CUSTOMERID)-[:HAS]->(a:ACCOUNT_MAST)
 WHERE NOT (a)-[:Transaction_detail]->(:NOBOOK)
 RETURN c.CUST_ID, c.NAM_CUST_FULL, a.ACCT_NO;"
-Accounts with No Transactions in Date Range,"MATCH (a:ACCOUNT_MAST)
+Accounts with No Transactions within date 01-Jan-2024 to 31-Jan-2024,"MATCH (a:ACCOUNT_MAST)
 WHERE NOT EXISTS {
   MATCH (a)-[:Transaction_detail]->(t:NOBOOK)
   WHERE t.DAT_TXN >= date('2024-01-01') AND t.DAT_TXN <= date('2024-01-31')
