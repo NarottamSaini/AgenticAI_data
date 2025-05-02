@@ -4,7 +4,7 @@ RETURN c.NAM_CUST_FULL AS CustomerName, a.ACCT_NO AS AccountNumber, a.BAL_AVAILA
 Get all transactions details for a customer having CUSTOMERID = 1135,"MATCH (c:CUSTOMERID {CUST_ID: 1135})-[:HAS]->(a:ACCOUNT_MAST)-[:Transaction_detail]->(t:NOBOOK)
 RETURN c.NAM_CUST_FULL AS CustomerName, a.ACCT_NO AS AccountNumber, t.DAT_TXN AS TransactionDate, 
        t.TXT_TXN_DESC AS Description, t.AMT_TXN AS Amount, t.AMT_DRCR AS Type;"
-"Find customerID, CustomerName, Account number and balance for account having balance less than a threshold","MATCH (c:CUSTOMERID)-[:HAS]->(a:ACCOUNT_MAST)
+"Find customerID, CustomerName, Account number and balance for account having balance less than a INR 5000","MATCH (c:CUSTOMERID)-[:HAS]->(a:ACCOUNT_MAST)
 WHERE a.BAL_AVAILABLE < 5000
 RETURN c.CUST_ID, c.NAM_CUST_FULL, a.ACCT_NO, a.BAL_AVAILABLE;"
 Count transactions by type (Credit/Debit) for each customer,"MATCH (c:CUSTOMERID)-[:HAS]->(a:ACCOUNT_MAST)-[:Transaction_detail]->(t:NOBOOK)
