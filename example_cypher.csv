@@ -19,7 +19,7 @@ WITH c,
      SUM(CASE WHEN t.AMT_DRCR = 'C' THEN t.AMT_TXN ELSE 0 END) AS TotalCredit,
      SUM(CASE WHEN t.AMT_DRCR = 'D' THEN t.AMT_TXN ELSE 0 END) AS TotalDebit
 RETURN c.CUST_ID, c.NAM_CUST_FULL, TotalCredit, TotalDebit;"
-Total credit and debit amount for specific customer,"MATCH (c:CUSTOMERID)-[:HAS]->(a:ACCOUNT_MAST)-[:Transaction_detail]->(t:NOBOOK)
+Total credit and debit amount for customer having custID = 1022,"MATCH (c:CUSTOMERID)-[:HAS]->(a:ACCOUNT_MAST)-[:Transaction_detail]->(t:NOBOOK)
 where c.CUST_ID=1022
 WITH c, 
      SUM(CASE WHEN t.AMT_DRCR = 'C' THEN t.AMT_TXN ELSE 0 END) AS TotalCredit,
