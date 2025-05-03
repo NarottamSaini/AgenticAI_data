@@ -34,14 +34,3 @@ WHERE NOT EXISTS {
   WHERE t.DAT_TXN >= date('2024-01-01') AND t.DAT_TXN <= date('2024-01-31')
 }
 RETURN a.ACCT_NO AS AccountNumber, a.CC_BRN AS Branch, a.DAT_ACCT_OPEN AS OpenDate;"
-,
-,
-,
-,
-,
-,
-,
-,
-,
-,
-,
